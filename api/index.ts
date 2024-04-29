@@ -32,6 +32,7 @@ app.post('/postRequest', async (req, res) => {
   // const { name, contact, detail, files } = req.body;
   // const { name, contact, detail, files } = JSON.parse(req.body);
 
+  console.log(req);
   console.log(req.body);
   console.log(req.body.name);
 
