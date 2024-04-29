@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 
 // post methods
 app.post('/postRequest', async (req, res) => {
-  // const { name, contact, detail, files } = JSON.parse(req.body);
+  const { name, contact, detail, files } = JSON.parse(req.body);
 
   // interface fileDictionaryProps {
   //   filename: string
@@ -63,8 +63,6 @@ app.post('/postRequest', async (req, res) => {
   // catch (Exception) {
   //   res.send('failed');
   // }
-
-  res.send('?');
 });
 
 module.exports = app;
