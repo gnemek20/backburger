@@ -52,11 +52,11 @@ app.post('/postRequest', async (req, res) => {
     attachments: filesDictionary
   }
 
-  // try {
-  //   await transporter.sendMail(mailOptions);
-  // }
-  // catch (Exception) {
-  // }
+  try {
+    await transporter.sendMail(mailOptions);
+  }
+  catch (Exception) {
+  }
 
   res.send('complete');
 });
