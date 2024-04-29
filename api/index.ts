@@ -57,7 +57,7 @@ app.post('/postRequest', async (req, res) => {
   }
 
   try {
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions);
     res.send('completed');
   }
   catch (Exception) {
