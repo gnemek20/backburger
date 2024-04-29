@@ -32,12 +32,16 @@ app.post('/postRequest', async (req, res) => {
   const { name, contact, detail, files } = JSON.parse(req.body);
 
   interface fileDictionaryProps {
+    filename: string
     path: string
   }
 
   let filesDictionary: Array<fileDictionaryProps> = [];
   files && files.map((file) => {
-    filesDictionary.push({ path: file });
+    filesDictionary.push({
+      filename: file.name,
+      path: file.path
+    });
   });
 
   const mailOptions = {
