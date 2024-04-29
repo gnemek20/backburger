@@ -54,11 +54,11 @@ app.post('/postRequest', async (req, res) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    res.send('complete');
   }
   catch (Exception) {
-    res.send('fail');
   }
+
+  res.send('complete');
 });
 
 app.listen(3000);
