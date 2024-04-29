@@ -29,21 +29,23 @@ app.get('/', (req, res) => {
 
 // post methods
 app.post('/postRequest', async (req, res) => {
-  const { name, contact, detail, files } = req.body;
+  // const { name, contact, detail, files } = req.body;
   // const { name, contact, detail, files } = JSON.parse(req.body);
 
-  interface fileDictionaryProps {
-    filename: string
-    path: string
-  }
+  const {name, contact, detail} = JSON.parse(req.body);
 
-  let filesDictionary: Array<fileDictionaryProps> = [];
-  files && files.map((file) => {
-    filesDictionary.push({
-      filename: file.name,
-      path: file.path
-    });
-  });
+  // interface fileDictionaryProps {
+  //   filename: string
+  //   path: string
+  // }
+
+  // let filesDictionary: Array<fileDictionaryProps> = [];
+  // files && files.map((file) => {
+  //   filesDictionary.push({
+  //     filename: file.name,
+  //     path: file.path
+  //   });
+  // });
 
   const mailOptions = {
     from: 'yeou914@gmail.com',
@@ -54,7 +56,7 @@ app.post('/postRequest', async (req, res) => {
       <br />
       <p>${detail && detail.replace(/\n/g, '<br />')}</p>
     `,
-    attachments: filesDictionary
+    // attachments: filesDictionary
   }
 
   try {
