@@ -31,6 +31,8 @@ app.get('/', (req, res) => {
 app.post('/postRequest', async (req, res) => {
   const { name, contact, detail, files } = JSON.parse(req.body);
 
+  console.log(name, contact, detail, files)
+
   // interface fileDictionaryProps {
   //   filename: string
   //   path: string
@@ -63,6 +65,8 @@ app.post('/postRequest', async (req, res) => {
   // catch (Exception) {
   //   res.send('failed');
   // }
+
+  res.send("?");
 });
 
 module.exports = app;
