@@ -5,6 +5,10 @@ const app = express();
 app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
+// parser setup
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // cors setup
 const cors = require('cors');
 const corsOptions = {
@@ -32,7 +36,6 @@ app.post('/postRequest', async (req, res) => {
   // const { name, contact, detail, files } = req.body;
   // const { name, contact, detail, files } = JSON.parse(req.body);
 
-  console.log(req);
   console.log(req.body);
   console.log(req.body.name);
 
