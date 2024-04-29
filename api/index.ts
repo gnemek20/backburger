@@ -29,7 +29,8 @@ app.get('/', (req, res) => {
 
 // post methods
 app.post('/postRequest', async (req, res) => {
-  let { name, contact, detail, files } = JSON.parse(req.body).catch(req.body);
+  const { name, contact, detail, files } = req.body;
+  // const { name, contact, detail, files } = JSON.parse(req.body);
 
   interface fileDictionaryProps {
     filename: string
