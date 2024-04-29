@@ -1,7 +1,11 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "nodemailer": "^6.9.13"
+  },
+  "scripts": {
+    "start": "vercel dev"
   },
   "devDependencies": {
     "@types/node": "^20.12.7"
