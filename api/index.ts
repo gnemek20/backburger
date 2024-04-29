@@ -10,7 +10,8 @@ const cors = require('cors');
 const corsOptions = {
   origin: ["https://www.daeyanging.com/", "https://daeyanging.com/"]
 }
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 
 // mailer setup
 const nodemailer = require('nodemailer');
