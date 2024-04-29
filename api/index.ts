@@ -10,8 +10,7 @@ const cors = require('cors');
 const corsOptions = {
   origin: ["https://www.daeyanging.com/", "https://daeyanging.com/"]
 }
-// app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
 
 // mailer setup
 const nodemailer = require('nodemailer');
@@ -30,14 +29,14 @@ app.get('/', (req, res) => {
 
 // post methods
 app.post('/postRequest', async (req, res) => {
-  const { name, contact, detail, files } = req.body;
+  const { name, contact, detail, files } = JSON.parse(req.body);
 
   interface fileDictionaryProps {
     path: string
   }
 
   let filesDictionary: Array<fileDictionaryProps> = [];
-  files.map((file) => {
+  files && files.map((file) => {
     filesDictionary.push({ path: file });
   });
 
@@ -48,7 +47,7 @@ app.post('/postRequest', async (req, res) => {
     html: `
       <p>연락처: ${contact}</p>
       <br />
-      <p>${detail.replace(/\n/g, '<br />')}</p>
+      <p>${detail && detail.replace(/\n/g, '<br />')}</p>
     `,
     attachments: filesDictionary
   }
