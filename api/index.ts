@@ -32,7 +32,11 @@ app.post('/postRequest', async (req, res) => {
   // const { name, contact, detail, files } = req.body;
   // const { name, contact, detail, files } = JSON.parse(req.body);
 
-  const {name, contact, detail} = JSON.parse(req.body);
+  console.log(typeof req.body);
+  try {
+    console.log(typeof JSON.parse(req.body))
+  }
+  catch (Exception) {}
 
   // interface fileDictionaryProps {
   //   filename: string
@@ -47,20 +51,20 @@ app.post('/postRequest', async (req, res) => {
   //   });
   // });
 
-  const mailOptions = {
-    from: 'yeou914@gmail.com',
-    to: 'yeou914@gmail.com',
-    subject: `${name}님의 요청사항입니다.`,
-    html: `
-      <p>연락처: ${contact}</p>
-      <br />
-      <p>${detail && detail.replace(/\n/g, '<br />')}</p>
-    `,
-    // attachments: filesDictionary
-  }
+  // const mailOptions = {
+  //   from: 'yeou914@gmail.com',
+  //   to: 'yeou914@gmail.com',
+  //   subject: `${name}님의 요청사항입니다.`,
+  //   html: `
+  //     <p>연락처: ${contact}</p>
+  //     <br />
+  //     <p>${detail && detail.replace(/\n/g, '<br />')}</p>
+  //   `,
+  //   attachments: filesDictionary
+  // }
 
   try {
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions);
     res.send('completed');
   }
   catch (Exception) {
