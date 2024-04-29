@@ -29,44 +29,40 @@ app.get('/', (req, res) => {
 
 // post methods
 app.post('/postRequest', async (req, res) => {
-  const { name, contact, detail, files } = JSON.parse(req.body);
+  let { name, contact, detail, files } = JSON.parse(req.body).catch(req.body);
 
-  console.log(name, contact, detail, files)
+  interface fileDictionaryProps {
+    filename: string
+    path: string
+  }
 
-  // interface fileDictionaryProps {
-  //   filename: string
-  //   path: string
-  // }
+  let filesDictionary: Array<fileDictionaryProps> = [];
+  files && files.map((file) => {
+    filesDictionary.push({
+      filename: file.name,
+      path: file.path
+    });
+  });
 
-  // let filesDictionary: Array<fileDictionaryProps> = [];
-  // files && files.map((file) => {
-  //   filesDictionary.push({
-  //     filename: file.name,
-  //     path: file.path
-  //   });
-  // });
+  const mailOptions = {
+    from: 'yeou914@gmail.com',
+    to: 'yeou914@gmail.com',
+    subject: `${name}님의 요청사항입니다.`,
+    html: `
+      <p>연락처: ${contact}</p>
+      <br />
+      <p>${detail && detail.replace(/\n/g, '<br />')}</p>
+    `,
+    attachments: filesDictionary
+  }
 
-  // const mailOptions = {
-  //   from: 'yeou914@gmail.com',
-  //   to: 'yeou914@gmail.com',
-  //   subject: `${name}님의 요청사항입니다.`,
-  //   html: `
-  //     <p>연락처: ${contact}</p>
-  //     <br />
-  //     <p>${detail && detail.replace(/\n/g, '<br />')}</p>
-  //   `,
-  //   attachments: filesDictionary
-  // }
-
-  // try {
-  //   // await transporter.sendMail(mailOptions);
-  //   res.send('completed');
-  // }
-  // catch (Exception) {
-  //   res.send('failed');
-  // }
-
-  res.send("?");
+  try {
+    await transporter.sendMail(mailOptions);
+    res.send('completed');
+  }
+  catch (Exception) {
+    res.send('failed');
+  }
 });
 
 module.exports = app;
