@@ -14,8 +14,8 @@ const cors = require('cors');
 const corsOptions = {
   origin: ["https://www.daeyanging.com/", "https://daeyanging.com/"]
 }
-// app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
+// app.use(cors());
 
 // mailer setup
 const nodemailer = require('nodemailer');
@@ -34,39 +34,36 @@ app.get('/', (req, res) => {
 
 // post methods
 app.post('/postRequest', async (req, res) => {
-  // const { name, contact, detail, files } = req.body;
+  const { name, contact, detail, files } = req.body;
   // const { name, contact, detail, files } = JSON.parse(req.body);
 
-  console.log(req.body);
-  console.log(req.body.name);
+  interface fileDictionaryProps {
+    filename: string
+    path: string
+  }
 
-  // interface fileDictionaryProps {
-  //   filename: string
-  //   path: string
-  // }
+  let filesDictionary: Array<fileDictionaryProps> = [];
+  files && files.map((file) => {
+    filesDictionary.push({
+      filename: file.name,
+      path: file.path
+    });
+  });
 
-  // let filesDictionary: Array<fileDictionaryProps> = [];
-  // files && files.map((file) => {
-  //   filesDictionary.push({
-  //     filename: file.name,
-  //     path: file.path
-  //   });
-  // });
-
-  // const mailOptions = {
-  //   from: 'yeou914@gmail.com',
-  //   to: 'yeou914@gmail.com',
-  //   subject: `${name}님의 요청사항입니다.`,
-  //   html: `
-  //     <p>연락처: ${contact}</p>
-  //     <br />
-  //     <p>${detail && detail.replace(/\n/g, '<br />')}</p>
-  //   `,
-  //   attachments: filesDictionary
-  // }
+  const mailOptions = {
+    from: 'yeou914@gmail.com',
+    to: 'yeou914@gmail.com',
+    subject: `${name}님의 요청사항입니다.`,
+    html: `
+      <p>연락처: ${contact}</p>
+      <br />
+      <p>${detail && detail.replace(/\n/g, '<br />')}</p>
+    `,
+    attachments: filesDictionary
+  }
 
   try {
-    // await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
     res.send('completed');
   }
   catch (Exception) {
