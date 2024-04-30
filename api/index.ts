@@ -64,16 +64,10 @@ app.post('/postRequest', async (req, res) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    res.json({
-      status: 200,
-      message: 'completed'
-    })
+    res.json({ status: 200 })
   }
   catch (Exception) {
-    res.json({
-      status: 200,
-      message: 'failed'
-    })
+    res.json({ status: 500 })
   }
 });
 
